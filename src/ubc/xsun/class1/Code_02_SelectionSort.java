@@ -8,20 +8,22 @@ public class Code_02_SelectionSort {
             return;
         }
 
-        for(int i=0; i<arr.length-1;i++){
-            int minIndex = i+1;
-            for (int j=i+1; j<arr.length; j++){
-                minIndex = arr[j]<arr[minIndex]?j:minIndex;
-
+        for(int i=0; i<arr.length-1;i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if(arr[j] < arr[minIndex]){
+                    minIndex = j;
                 }
-           swap(arr, i, minIndex);
             }
+            swap(arr, i, minIndex);
+        }
 
     }
     public static void swap(int[] arr, int i, int j) {
-        arr[i] = arr[i] ^ arr[j];
-        arr[j] = arr[i] ^ arr[j];
-        arr[i] = arr[i] ^ arr[j];
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+
 
     }
 
@@ -100,6 +102,7 @@ public class Code_02_SelectionSort {
         System.out.println(succeed ? "Nice!" : "Fucking fucked!");
 
         int[] arr = generateRandomArray(maxSize, maxValue);
+        //int[] arr = {-4, 74, -36, 38, 63, 41, -2, -23, -46, 16, -13, 84, -24, 6, -71, -1, 0, 45, -4, 9, 70, -50, 73, 28, 15};
         printArray(arr);
         selectionSort(arr);
         printArray(arr);
