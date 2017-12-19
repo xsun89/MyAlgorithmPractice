@@ -96,6 +96,7 @@ public class Code_00_BubbleSort {
         System.out.println(succeed ? "Nice!" : "Fucking fucked!");
 
         int[] arr = generateRandomArray(maxSize, maxValue);
+
         printArray(arr);
         bubbleSort(arr);
         printArray(arr);

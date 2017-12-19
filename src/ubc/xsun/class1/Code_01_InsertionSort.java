@@ -7,10 +7,9 @@ public class Code_01_InsertionSort {
         if(arr == null || arr.length < 2){
             return;
         }
-
-        for(int i=0; i<arr.length-1; i++){
-            for(int j=i+1; j<arr.length; j++){
-
+        for(int i=1; i<arr.length; i++){
+            for(int j=i-1; j>=0 && arr[j] > arr[j+1]; j--){
+                swap(arr, j, j+1);
             }
         }
     }
@@ -96,6 +95,7 @@ public class Code_01_InsertionSort {
         System.out.println(succeed ? "Nice!" : "Fucking fucked!");
 
         int[] arr = generateRandomArray(maxSize, maxValue);
+        //int[] arr = {-4, 74, -36, 38, 63, 41, -2, -23, -46, 16, -13, 84, -24, 6};
         printArray(arr);
         insertionSort(arr);
         printArray(arr);
