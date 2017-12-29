@@ -8,16 +8,35 @@ public class Code_04_QuickSort {
             return;
         }
 
-        for(int i=0; i<arr.length-1;i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < arr.length; j++) {
-                if(arr[j] < arr[minIndex]){
-                    minIndex = j;
-                }
-            }
-            swap(arr, i, minIndex);
-        }
+        quickSort(arr, 0, arr.length - 1);
 
+    }
+
+    public static void quickSort(int[] arr, int l, int r){
+        if(l < r){
+            swap(arr, l+(int)(Math.random()*(r-l+1)), r);
+            int[] p = patition(arr, l, r);
+            quickSort(arr, l, p[0] - 1);
+            quickSort(arr, p[1]+1, r);
+        }
+    }
+
+    public static int[] patition(int[] arr, int L, int R)
+    {
+        int less = L-1;
+        int more = R;
+        while(L < more){
+            if (arr[L] < arr[R]){
+                swap(arr, ++less, L++);
+            }else if(arr[L] == arr[R]){
+                L++;
+            }else{
+                swap(arr, L, --more);
+            }
+
+        }
+        swap(arr, more, R);
+        return new int[]{less+1, more};
     }
     public static void swap(int[] arr, int i, int j) {
         int tmp = arr[i];
