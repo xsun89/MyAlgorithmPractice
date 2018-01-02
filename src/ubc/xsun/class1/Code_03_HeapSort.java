@@ -3,22 +3,46 @@ package ubc.xsun.class1;
 import java.util.Arrays;
 
 public class Code_03_HeapSort {
-    public static void heapSort(int[] arr){
-        if(arr == null || arr.length < 2){
+    public static void heapSort(int[] arr) {
+        if (arr == null || arr.length < 2) {
             return;
         }
 
-        for(int i=0; i<arr.length-1;i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < arr.length; j++) {
-                if(arr[j] < arr[minIndex]){
-                    minIndex = j;
-                }
-            }
-            swap(arr, i, minIndex);
+        for (int i = 1; i < arr.length; i++) {
+            heapInsert(arr, i);
+        }
+        int size = arr.length;
+        swap(arr, 0, --size);
+        while (size > 0) {
+            heapify(arr, 0, size);
+            swap(arr, 0, --size);
         }
 
     }
+
+    public static void heapify(int[] arr, int index, int size) {
+        int l = index * 2 + 1;
+        if(l >= size) {
+             return;
+        }
+
+        int largest = ((l + 1) < size && arr[l + 1] > arr[l]) ? l + 1 : l;
+        largest = arr[largest] > arr[index] ? largest : index;
+        if (largest == index) {
+            return;
+        }
+
+        swap(arr, largest, index);
+        heapify(arr, largest, size);
+    }
+
+    public static void heapInsert(int[] arr, int index) {
+        while (arr[index] > arr[(index - 1) / 2]) {
+            swap(arr, (index - 1) / 2, index);
+            index = (index - 1) / 2;
+        }
+    }
+
     public static void swap(int[] arr, int i, int j) {
         int tmp = arr[i];
         arr[i] = arr[j];
