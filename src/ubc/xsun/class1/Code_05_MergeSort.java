@@ -7,17 +7,45 @@ public class Code_05_MergeSort {
         if(arr == null || arr.length < 2){
             return;
         }
+        mergeSort(arr, 0, arr.length-1);
 
-        for(int i=0; i<arr.length-1;i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < arr.length; j++) {
-                if(arr[j] < arr[minIndex]){
-                    minIndex = j;
-                }
+    }
+
+    public static void mergeSort(int[] arr, int l, int r){
+        if(l >= r){
+            return;
+        }
+        int m = l + ((r-l)>>1);
+        mergeSort(arr, l, m);
+        mergeSort(arr, m+1, r);
+        merge(arr, l, m, r);
+    }
+
+    public static void merge(int[] arr, int l, int m, int r){
+        int[] help = new int[r-l+1];
+        int leftIdx = l;
+        int rightIdx = m+1;
+        int helpIdx = 0;
+        while(leftIdx <= m && rightIdx <= r){
+            if(arr[leftIdx] < arr[rightIdx]){
+                help[helpIdx++] = arr[leftIdx++];
+            }else{
+                help[helpIdx++] = arr[rightIdx++];
             }
-            swap(arr, i, minIndex);
         }
 
+        while (leftIdx <= m){
+            help[helpIdx++] = arr[leftIdx++];
+        }
+
+        while (rightIdx <= r){
+            help[helpIdx++] = arr[rightIdx++];
+        }
+
+        leftIdx = l;
+        for(helpIdx=0; helpIdx < r-l+1; helpIdx++){
+            arr[l+helpIdx] = help[helpIdx];
+        }
     }
     public static void swap(int[] arr, int i, int j) {
         int tmp = arr[i];
